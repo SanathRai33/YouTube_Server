@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
   name: {
     type: String,
   },
-  channelName: {
+  channelname: {
     type: String,
   },
   description: {
