@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import path from "path";
 import userRoutes from "./Routes/UserRoutes.js";
 import videoRoutes from './Routes/VideoRoutes.js';
 
@@ -12,6 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "30mb", extended: "true" }));
 app.use(express.urlencoded({ limit: "30mb", extended: "true" }));
+app.use("/uploads",express.static(path.join("uploads")))
 
 app.get("/", (req, res) => {
   res.send("YouTube backend working...");
@@ -19,7 +21,7 @@ app.get("/", (req, res) => {
 
 app.use(bodyParser.json());
 app.use("/user", userRoutes);
-app.use("/video", videoRoutes);
+app.use("/video", videoRoutes); 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
