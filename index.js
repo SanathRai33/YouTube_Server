@@ -7,6 +7,8 @@ import path from "path";
 import userRoutes from "./Routes/UserRoutes.js";
 import videoRoutes from './Routes/VideoRoutes.js';
 import likeRoutes from './Routes/LikeRoutes.js';
+import watchLaterRoutes from './Routes/WatchLaterRoutes.js';
+import historyRoutes from './Routes/HistoryRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -24,6 +26,8 @@ app.use(bodyParser.json());
 app.use("/user", userRoutes);
 app.use("/video", videoRoutes); 
 app.use("/like", likeRoutes); 
+app.use("/watch", watchLaterRoutes); 
+app.use("/history", historyRoutes); 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

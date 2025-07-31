@@ -17,8 +17,8 @@ export const login = async (req, res) => {
       res.status(200).json({ result: existingUser });
     }
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
-    return;
+    console.log(error)
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 
@@ -42,6 +42,7 @@ export const updateProfile = async (req, res) => {
     );
     res.status(201).json({ updatedata });
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: "Something went wrong" });
   }
 };

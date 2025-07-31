@@ -28,7 +28,7 @@ export const getAllVideos = async(req, res)=>{
     const files = await Video.find();
     return res.status(200).send(files)
   } catch (error) {
-    console.log("Login error:", error)
+    console.log(error)
     return res.status(500).json({message: "Something went wrong"});
   }
 }
