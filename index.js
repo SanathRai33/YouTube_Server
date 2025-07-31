@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import path from "path";
 import userRoutes from "./Routes/UserRoutes.js";
 import videoRoutes from './Routes/VideoRoutes.js';
+import likeRoutes from './Routes/LikeRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 app.use(bodyParser.json());
 app.use("/user", userRoutes);
 app.use("/video", videoRoutes); 
+app.use("/like", likeRoutes); 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

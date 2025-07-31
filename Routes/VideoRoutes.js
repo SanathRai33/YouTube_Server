@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllVideos, uploadVideo } from "../Controlles/VideoController.js";
+import { getAllVideos, uploadVideo } from "../Controllers/VideoController.js";
 import upload from "../fileHelper/fileHelper.js";
 
 const routes = express.Router();
