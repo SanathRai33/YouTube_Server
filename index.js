@@ -9,6 +9,7 @@ import videoRoutes from './Routes/VideoRoutes.js';
 import likeRoutes from './Routes/LikeRoutes.js';
 import watchLaterRoutes from './Routes/WatchLaterRoutes.js';
 import historyRoutes from './Routes/HistoryRoutes.js';
+import commentRoutes from './Routes/CommentRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -28,6 +29,7 @@ app.use("/video", videoRoutes);
 app.use("/like", likeRoutes); 
 app.use("/watch", watchLaterRoutes); 
 app.use("/history", historyRoutes); 
+app.use("/comment", commentRoutes); 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
