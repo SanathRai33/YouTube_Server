@@ -4,7 +4,7 @@ import {
   unsubscribe,
   getUserSubscriptions,
   getUserSubscribers,
-} from "../controllers/SubscriptionController.js";
+} from "../Controllers/SubscriptionController";
 
 const router = express.Router();
 
