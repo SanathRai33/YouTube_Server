@@ -1,5 +1,5 @@
 import multer from "multer";
-import { videoStorage } from "../utils/cloudinary.js";
+import { videoStorage } from "../config/cloudinaryConfig.js";
 
 const upload = multer({ storage: videoStorage });
 
