@@ -19,7 +19,7 @@ const videoSchema = mongoose.Schema({
   },
   thumbnail: {
     type: String,
-    required: true,
+    // required: true,
   },
   videochannel: {
     type: String,
