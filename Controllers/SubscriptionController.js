@@ -1,6 +1,5 @@
 import Subscription from "../Modals/Subscription.js";
 
-// Subscribe to a channel
 export const subscribe = async (req, res) => {
   const { subscriberId, channelId } = req.body;
 
