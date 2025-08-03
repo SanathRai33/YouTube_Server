@@ -5,12 +5,12 @@ const commentSchema = mongoose.Schema(
     userid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
-      require: true,
+      required: true,
     },
     videoid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "video",
-      require: true,
+      required: true,
     },
     commentedon: {
       type: Date,

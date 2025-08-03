@@ -5,12 +5,12 @@ const historySchema = mongoose.Schema(
     viewer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
-      require: true,
+      required: true,
     },
     videoid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "video",
-      require: true,
+      required: true,
     },
     likedon: {
       type: Date,
@@ -18,7 +18,7 @@ const historySchema = mongoose.Schema(
     },
     filetype: {
       type: String,
-      require: true,
+      required: true,
     },
   },
   {

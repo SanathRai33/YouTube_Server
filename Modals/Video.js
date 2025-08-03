@@ -3,27 +3,27 @@ import mongoose from "mongoose";
 const videoSchema = mongoose.Schema({
   videotitle: {
     type: String,
-    require: true,
+    required: true,
   },
   filename: {
     type: String,
-    require: true,
+    required: true,
   },
   filepath: {
     type: String,
-    require: true,
+    required: true,
   },
   filesize: {
     type: String,
-    require: true,
+    required: true,
   },
   thumbnail: {
     type: String,
-    require: true,
+    required: true,
   },
   videochannel: {
     type: String,
-    require: true,
+    required: true,
   },
   likes: {
     type: Number,
