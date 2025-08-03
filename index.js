@@ -18,7 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "30mb", extended: "true" }));
 app.use(express.urlencoded({ limit: "30mb", extended: "true" }));
-app.use("/uploads",express.static(path.join("uploads")))
+// app.use("/uploads",express.static(path.join("uploads"))) No need for Cloudinary
 
 app.get("/", (req, res) => {
   res.send("YouTube backend working...");
