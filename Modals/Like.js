@@ -16,10 +16,6 @@ const likeSchema = mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    filetype: {
-      type: String,
-      required: true,
-    },
   },
   {
     timestamps: true,

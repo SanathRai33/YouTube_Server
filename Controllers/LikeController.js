@@ -2,7 +2,7 @@ import Like from "../Modals/Like.js";
 import Video from "../Modals/Video.js";
 
 export const handleLike = async (req, res) => {
-  const { userId, filetype } = req.body;
+  const { userId } = req.body;
   const { videoId } = req.params;
 
   try {
@@ -16,15 +16,13 @@ export const handleLike = async (req, res) => {
       await Video.findByIdAndUpdate(videoId, { $inc: { like: -1 } });
       return res.status(200).json({ liked: false });
     } else {
-      await Like.create({ viewer: userId, videoid: videoId, filetype });
+      await Like.create({ viewer: userId, videoid: videoId });
       await Video.findByIdAndUpdate(videoId, { $inc: { like: 1 } });
       return res.status(200).json({ liked: true });
     }
   } catch (error) {
-    console.error("Like error:", error.message || error);
-    return res
-      .status(500)
-      .json({ message: error.message || "Something went wrong" });
+    console.log(error);
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
 
