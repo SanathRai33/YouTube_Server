@@ -26,10 +26,15 @@ export const uploadVideo = async (req, res) => {
 
 export const getAllVideos = async (req, res) => {
   try {
-    const files = await Video.find();
+    const files = await Video.find().populate({
+      path: "uploader",
+      model: "user", // or "User" if your model is named with capital
+      select: "image", // only fetch needed fields
+    });
+
     return res.status(200).send(files);
   } catch (error) {
-    console.log(error);
+    console.log("Error in getAllVideos:", error);
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
