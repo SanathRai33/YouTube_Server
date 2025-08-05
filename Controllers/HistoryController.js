@@ -5,12 +5,20 @@ export const handleHistory = async (req, res) => {
   const { userId } = req.body;
   const { videoId } = req.params;
 
+  if (!userId || !videoId) {
+    return res.status(400).json({ message: "Missing userId or videoId" });
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(userId) || !mongoose.Types.ObjectId.isValid(videoId)) {
+    return res.status(400).json({ message: "Invalid userId or videoId" });
+  }
+
   try {
     await History.create({ viewer: userId, videoid: videoId });
     await Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } });
     return res.status(200).json({ history: true });
   } catch (error) {
-    console.log(error);
+    console.error("Error in handleHistory:", error.message, error.stack);
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
