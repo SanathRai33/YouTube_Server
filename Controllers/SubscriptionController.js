@@ -26,6 +26,18 @@ export const subscribe = async (req, res) => {
   res.status(201).json({ message: "Subscription successful." });
 };
 
+// Check if a user is subscribed to a channel
+export const checkSubscription = async (req, res) => {
+  const { subscriberId, channelId } = req.params;
+
+  const sub = await Subscription.findOne({
+    subscriber: subscriberId,
+    channel: channelId,
+  });
+
+  return res.status(200).json({ isSubscribed: !!sub });
+};
+
 // Unsubscribe from a channel
 export const unsubscribe = async (req, res) => {
   const { subscriberId, channelId } = req.body;
