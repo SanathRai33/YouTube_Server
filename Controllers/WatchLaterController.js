@@ -27,10 +27,8 @@ export const getAllWatchLater = async (req, res) => {
   const { userId } = req.params;
   try {
     const watchLaterVideo = await WatchLater.find({ viewer: userId })
-      .populate({
-        path: "videoid",
-        model: "video",
-      })
+      .sort({ createdAt: -1 })
+      .populate({ path: "videoid", model: "video" })
       .exec();
     return res.status(200).json(watchLaterVideo);
   } catch (error) {
