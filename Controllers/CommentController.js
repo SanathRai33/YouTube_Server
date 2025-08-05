@@ -7,7 +7,7 @@ export const postComment = async (req, res) => {
 
   try {
     await postComment.save();
-    return res.status(200).json({ Comment: true });
+    return res.status(200).json({ comment: true });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Something went wrong" });
@@ -15,9 +15,9 @@ export const postComment = async (req, res) => {
 };
 
 export const getAllComment = async (req, res) => {
-  const { videoId } = req.params;
+  const { videoid } = req.params;
   try {
-    const commentVideo = await Comment.find({ videoid: videoId });
+    const commentVideo = await Comment.find({ videoid: videoid });
     return res.status(200).json(commentVideo);
   } catch (error) {
     console.log(error);

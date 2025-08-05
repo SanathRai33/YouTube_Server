@@ -18,7 +18,7 @@ export const handleHistory = async (req, res) => {
 export const handleView = async (req, res) => {
   const { videoId } = req.params;
   try {
-    await Video.findByIdAndUpdate(videoId, { $inc: { views: -1 } });
+    await Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Something went wrong" });
