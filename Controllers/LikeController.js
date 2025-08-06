@@ -27,7 +27,7 @@ export const handleLike = async (req, res) => {
 };
 
 export const getAllLikedVideo = async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
   try {
     const likedVideo = await Like.find({ viewer: userId })
       .populate({
