@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import History from "../Modals/History.js";
 import Video from "../Modals/Video.js";
 
@@ -7,12 +6,16 @@ export const handleHistory = async (req, res) => {
   const { videoId } = req.params;
 
   try {
-    // Always create a new history record
-    await History.create({ viewer: userId, videoid: videoId });
+    // Update existing or create new history record
+    await History.findOneAndUpdate(
+      { viewer: userId, videoid: videoId },
+      { $set: { likedon: new Date() } },
+      { upsert: true, new: true }
+    );
 
-    return res.status(201).json({ message: "History entry created" });
+    return res.status(200).json({ message: "History updated" });
   } catch (error) {
-    console.error("Error adding to history:", error);
+    console.error("Error updating history:", error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
