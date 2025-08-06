@@ -14,12 +14,19 @@ export const handleHistory = async (req, res) => {
   }
 
   try {
-    await History.create({ viewer: userId, videoid: videoId });
+    // Upsert history: update if exists, else create
+    await History.findOneAndUpdate(
+      { viewer: userId, videoid: videoId },
+      { $set: { likedon: Date.now() } },
+      { upsert: true, new: true }
+    );
     await Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } });
     return res.status(200).json({ history: true });
   } catch (error) {
     console.error("History DB error:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 };
 
