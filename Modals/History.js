@@ -22,6 +22,4 @@ const historySchema = mongoose.Schema(
   }
 );
 
-historySchema.index({ viewer: 1, videoid: 1 }, { unique: true });
-
 export default mongoose.model("history", historySchema);
