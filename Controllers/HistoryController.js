@@ -1,12 +1,8 @@
-import History from "../Modals/History.js";
-import Video from "../Modals/Video.js";
-import mongoose from "mongoose";
-
 import mongoose from "mongoose";
 import History from "../Modals/History.js";
 import Video from "../Modals/Video.js";
 
-export const handleHistoryAlwaysCreate = async (req, res) => {
+export const handleHistory = async (req, res) => {
   const { userId } = req.body;
   const { videoId } = req.params;
 
