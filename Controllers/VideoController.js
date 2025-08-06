@@ -38,3 +38,19 @@ export const getAllVideos = async (req, res) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+export const getMyChannelVideos = async (req, res) => {
+  const { userId } = req.params; 
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  try {
+    const videos = await Video.find({ uploader: userId });
+    res.status(200).json(videos);
+  } catch (error) {
+    console.error("Error fetching user videos:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
