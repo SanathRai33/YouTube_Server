@@ -1,4 +1,5 @@
 import Video from "../Modals/Video.js";
+import User from "../Modals/User.js";
 
 export const uploadVideo = async (req, res) => {
   if (!req.file) {
@@ -65,7 +66,15 @@ export const getMyChannelVideos = async (req, res) => {
   }
 
   try {
-    const videos = await Video.find({ uploader: userId });
+    const userExists = await User.findById(userId);
+    if (!userExists) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const videos = await Video.find({ uploader: userId })
+      .populate("uploader", "channelname image")
+      .sort({ createdAt: -1 }); 
+
     res.status(200).json(videos);
   } catch (error) {
     console.error("Error fetching user videos:", error);
