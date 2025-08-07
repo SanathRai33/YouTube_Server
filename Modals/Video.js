@@ -6,6 +6,10 @@ const videoSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    videodesc: {
+      type: String,
+      required: true,
+    },
     filename: {
       type: String,
       required: true,
@@ -17,18 +21,25 @@ const videoSchema = mongoose.Schema(
     public_id: {
       type: String,
     },
-
     filesize: {
       type: String,
       required: true,
     },
     thumbnail: {
       type: String,
-      // required: true,
     },
     videochannel: {
       type: String,
       required: true,
+    },
+    videotags: {
+      type: [String],
+      default: [],
+    },
+    visibility: {
+      type: String,
+      enum: ["public", "private", "unlisted"],
+      default: "public",
     },
     likes: {
       type: Number,
@@ -39,7 +50,9 @@ const videoSchema = mongoose.Schema(
       default: 0,
     },
     uploader: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
     },
   },
   {

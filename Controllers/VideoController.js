@@ -2,34 +2,52 @@ import Video from "../Modals/Video.js";
 
 export const uploadVideo = async (req, res) => {
   if (!req.file) {
-    return res.status(404).json({ message: "Upload only mp4 video file" });
-  } else {
-    try {
-      const file = new Video({
-        videotitle: req.body.videotitle,
-        filename: req.file.originalname,
-        filepath: req.file.path,
-        public_id: req.file.public_id,
-        filetype: req.file.mimetype,
-        filesize: req.file.size,
-        videochannel: req.body.videochannel,
-        uploader: req.body.uploader,
-      });
-      await file.save();
-      return res.status(201).json("File uploaded successfully");
-    } catch (error) {
-      console.log("Upload error", error);
-      return res.status(500).json({ message: "Something went wrong" });
-    }
+    return res.status(400).json({ message: "Upload only mp4 video file" });
+  }
+
+  try {
+    const {
+      videotitle,
+      videodesc,
+      videotags,
+      videochannel,
+      uploader,
+    } = req.body;
+
+    const file = new Video({
+      videotitle,
+      videodesc,
+      videotags: videotags ? videotags.split(",").map((tag) => tag.trim()) : [],
+      filename: req.file.originalname,
+      filepath: req.file.path,
+      public_id: req.file.public_id,
+      filetype: req.file.mimetype,
+      filesize: req.file.size,
+      videochannel,
+      uploader,
+    });
+
+    const savedVideo = await file.save();
+
+    const populatedVideo = await Video.findById(savedVideo._id).populate("uploader");
+
+    return res.status(201).json({
+      message: "File uploaded successfully",
+      video: populatedVideo,
+    });
+  } catch (error) {
+    console.error("Upload error", error);
+    return res.status(500).json({ message: "Something went wrong", error: error.message });
   }
 };
+
 
 export const getAllVideos = async (req, res) => {
   try {
     const files = await Video.find().populate({
       path: "uploader",
-      model: "user", // or "User" if your model is named with capital
-      select: "image", // only fetch needed fields
+      model: "user",
+      select: "image",
     });
 
     return res.status(200).send(files);
@@ -40,7 +58,7 @@ export const getAllVideos = async (req, res) => {
 };
 
 export const getMyChannelVideos = async (req, res) => {
-  const { userId } = req.params; 
+  const { userId } = req.params;
 
   if (!userId) {
     return res.status(400).json({ message: "User ID is required" });
