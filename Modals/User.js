@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema({
   image: {
     type: String,
   },
+  banner: {
+    type: String,
+  },
   joinedOn: {
     type: Date,
     default: Date.now,

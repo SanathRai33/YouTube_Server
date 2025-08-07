@@ -13,9 +13,20 @@ cloudinary.config({
 export const videoStorage = new CloudinaryStorage({
   cloudinary,
   params: {
-    resource_type: "video",  // for video uploads
-    folder: "youtube_uploads", // folder in Cloudinary
-    format: async () => "mp4", // force mp4 format
+    resource_type: "video", 
+    folder: "youtube_uploads", 
+    format: async () => "mp4",
+    public_id: (req, file) =>
+      new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname,
+  },
+});
+
+export const bannerStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    resource_type: "image",
+    folder: "youtube_banners",
+    format: async (req, file) => "jpg",
     public_id: (req, file) =>
       new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname,
   },
