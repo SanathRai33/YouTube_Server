@@ -1,6 +1,21 @@
 import mongoose from "mongoose";
 
-const commentSchema = mongoose.Schema(
+const replySchema = new mongoose.Schema(
+  {
+    userid: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    replybody: { type: String, required: true },
+    userreplied: { type: String, required: true },
+    userimage: { type: String, required: true },
+    repliedon: { type: Date, default: Date.now },
+  },
+  { _id: true }
+);
+
+const commentSchema = new mongoose.Schema(
   {
     userid: {
       type: mongoose.Schema.Types.ObjectId,
@@ -12,23 +27,14 @@ const commentSchema = mongoose.Schema(
       ref: "video",
       required: true,
     },
-    commentedon: {
-      type: Date,
-      default: Date.now,
-    },
+    commentedon: { type: Date, default: Date.now },
     commentbody: { type: String, required: true },
     usercommented: { type: String, required: true },
-    // userimage: { type: String, required: true },
-    // likes: { type: Array, default: [] },
-    // dislikes: { type: Array, default: [] },
-    // replies: { type: Array, default: [] },
-    // replycount: { type: Number, default: 0 },
-    // likecount: { type: Number, default: 0 },
-    // dislikecount: { type: Number, default: 0 },
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+    dislikes: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+    replies: [replySchema],
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 export default mongoose.model("comment", commentSchema);
